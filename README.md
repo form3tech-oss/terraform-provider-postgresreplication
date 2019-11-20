@@ -1,2 +1,3 @@
 # terraform-provider-postgresreplication
-terraform provider to manage postgres replication slots
+
+A Terraform provider for managing postgres logical replication slots
