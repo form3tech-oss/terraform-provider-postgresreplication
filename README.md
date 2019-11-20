@@ -25,7 +25,7 @@ provider postgresreplication {
   host     = "localhost"
   post     = 5432
   user     = "superuser"
-  paasswod = "superpassword"
+  password = "superpassword"
 }
 ```
 
@@ -44,7 +44,7 @@ The following provider block variables are available for configuration:
 resource "postgresreplication_slot" "test_slot" {
     slot_name 	   = "test_slot"
     output_plugin  = "wal2json"
-	database       = "my_db"
+    database       = "my_db"
 }
 ```
 
