@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgresql:
+    build:
+      context: ./postgres
+    restart: always
+    ports:
+      - 5432:5432
+
+  wait_for:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - postgresql
+    command: postgresql:5432
