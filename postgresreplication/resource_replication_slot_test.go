@@ -12,7 +12,7 @@ import (
 
 const (
 	testAccSlotCreate = `
-resource "postgresreplication_slot" "test_slot" {
+	resource "postgresreplication_slot" "test_slot" {
     slot_name 	   = "test_slot"
     output_plugin  = "wal2json"
 	database       = "postgres"
