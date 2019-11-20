@@ -3,10 +3,11 @@ package postgresreplication
 import (
 	"database/sql"
 	"fmt"
+	"testing"
+
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
 	_ "github.com/lib/pq"
-	"testing"
 )
 
 const (
@@ -24,10 +25,10 @@ func TestAccResourceReplicationSlot(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 		IDRefreshName: resourceName,
-		Providers:      map[string]terraform.ResourceProvider{
+		Providers: map[string]terraform.ResourceProvider{
 			"postgresreplication": Provider(),
 		},
-		CheckDestroy:  testAccCheckSlotDestroy,
+		CheckDestroy: testAccCheckSlotDestroy,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSlotCreate,
@@ -75,7 +76,7 @@ func testAccCheckSlotExists(resourceName string) resource.TestCheckFunc {
 		if err != nil {
 			return err
 		}
-		if !exists{
+		if !exists {
 			return fmt.Errorf("not created: %q", resourceName)
 		}
 		return nil
@@ -89,7 +90,7 @@ func testAccCheckSlotDestroy(s *terraform.State) error {
 			if err != nil {
 				return err
 			}
-			if exists{
+			if exists {
 				return fmt.Errorf("still exists: %q", r.Primary.ID)
 			}
 		}

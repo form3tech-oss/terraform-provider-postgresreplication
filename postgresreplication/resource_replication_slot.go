@@ -1,15 +1,15 @@
 package postgresreplication
 
 import (
-	"github.com/jackc/pgx"
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/jackc/pgx"
 	"github.com/pkg/errors"
 )
 
 const (
-	slotNameAttributeName      = "slot_name"
-	outputPluginAttributeName  = "output_plugin"
-	databaseAttributeName 	   = "database"
+	slotNameAttributeName     = "slot_name"
+	outputPluginAttributeName = "output_plugin"
+	databaseAttributeName     = "database"
 )
 
 func resourceReplicationSlot() *schema.Resource {
