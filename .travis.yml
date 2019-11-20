@@ -3,6 +3,7 @@ go:
   - 1.12.x
 env:
   global:
+    - TF_ACC=1
     - GO111MODULE=on
 cache:
   directories:
