@@ -1,20 +1,21 @@
 language: go
 go:
-  - 1.12.x
+- 1.12.x
 env:
   global:
-    - TF_ACC=1
-    - GO111MODULE=on
+  - TF_ACC=1
+  - GO111MODULE=on
+  - secure: UnkirfkFXfUI9pQ29cjGpIBh43jb+pFZUab9PXbolnn25fKsN7F0ttQYdoYy+JKLsncaJXrPZ1b8VK9ajIVeuOG+kgVGeGXEjQG8nv+ifyyWBa03ReQKekKu3gjciKq/RnLtO4lqmO7nHUblNaZ8Eeen9TAb+vUwG1S9PKBmsVYwWOTTRCbYs9+a3+tWms2FCfMkwr3VBr5LBQmZi8A2WLwYhMP5m6q+xZs+fks0LzL/UxA2x0Rx7QWnov5bg/e6DLMC1Vgq3OYEWJD6r6DaPksQn1mmMhFkvALTf/M9EXRMr8z82LZdvBjjtxDF1HmPNe7yRg6NRcqGm3IbVk0dxIYTNONsqU54pUragm05JXAGUZl8Fh1kbUJP+DliQ0v+EJt0sn8zYsudUwXr6lm1whYT/rl4UOg2nQWwkGWXBOMRhkzyyJT5Rsq/dDqNtLYv6G5t+MxnUdjGAkzzDSFbR6G16EbHd6Fvwg/Rfwp321ViEzLYUTyaYrBz6J3PfEJv/WO+2T85rlifm049+SiG25XJ30kXM9lNJhvWyms47zc+qHVcDOI2iMQSo0wFekicl5omw2Q8k10Zf4M+Kw/zg0Ugdg5+ZKHwGAXfecZ9o2hKS8jUEws8riXbEVBa+WCASk2wOMoKDw+7AB1EoY5+yYUxnWlt5KiRQQo1O3TQcAs=
 cache:
   directories:
-    - $GOPATH/pkg/mod
-    - $HOME/.cache/go-build
+  - "$GOPATH/pkg/mod"
+  - "$HOME/.cache/go-build"
 script:
-  - make
+- make
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: curl -sL https://git.io/goreleaser | bash
-    on:
-      tags: true
-      condition: "$TRAVIS_OS_NAME = linux"
+- provider: script
+  skip_cleanup: true
+  script: curl -sL https://git.io/goreleaser | bash
+  on:
+    tags: true
+    condition: "$TRAVIS_OS_NAME = linux"
