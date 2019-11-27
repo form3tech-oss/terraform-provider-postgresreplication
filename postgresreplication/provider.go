@@ -19,7 +19,7 @@ const (
 	defaultHost     = "localhost"
 	defaultUser     = "postgres"
 	defaultPassword = ""
-	defaultSslMode  = "preferp"
+	defaultSslMode  = "prefer"
 )
 
 type providerConfiguration struct {
