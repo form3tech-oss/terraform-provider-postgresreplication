@@ -10,6 +10,7 @@ const (
 	portKey     = "port"
 	hostKey     = "host"
 	userKey     = "user"
+	sslmodeKey  = "sslmode"
 	passwordKey = "password"
 )
 
@@ -18,6 +19,7 @@ const (
 	defaultHost     = "localhost"
 	defaultUser     = "postgres"
 	defaultPassword = ""
+	defaultSslMode  = "prefer"
 )
 
 type providerConfiguration struct {
@@ -25,6 +27,7 @@ type providerConfiguration struct {
 	host     string
 	user     string
 	password string
+	sslMode  string
 }
 
 func Provider() *schema.Provider {
@@ -35,6 +38,7 @@ func Provider() *schema.Provider {
 				host:     d.Get(hostKey).(string),
 				user:     d.Get(userKey).(string),
 				password: d.Get(passwordKey).(string),
+				sslMode:  d.Get(sslmodeKey).(string),
 			}, nil
 		},
 		ResourcesMap: map[string]*schema.Resource{
@@ -54,6 +58,13 @@ func Provider() *schema.Provider {
 				Sensitive:   false,
 				Default:     defaultPort,
 				Description: "The server port to connect to.",
+			},
+			sslmodeKey: {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Sensitive:   false,
+				Default:     defaultSslMode,
+				Description: "The ssl mode to use.",
 			},
 			userKey: {
 				Type:        schema.TypeString,
