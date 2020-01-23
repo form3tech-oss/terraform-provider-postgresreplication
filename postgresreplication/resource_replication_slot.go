@@ -2,6 +2,8 @@ package postgresreplication
 
 import (
 	"fmt"
+	"net/url"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/jackc/pgx"
 	"github.com/pkg/errors"
@@ -47,13 +49,18 @@ func resourceReplicationSlot() *schema.Resource {
 
 func connect(d *schema.ResourceData, m interface{}) (r *pgx.ReplicationConn, err error) {
 	c := m.(*providerConfiguration)
-	dbConfig, err := pgx.ParseURI(fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s",
-		c.user,
-		c.password,
+
+	u, err := url.Parse(fmt.Sprintf("postgres://%s:%d/%s?sslmode=%s",
 		c.host,
 		c.port,
 		d.Get(databaseAttributeName).(string),
 		c.sslMode))
+	if err != nil {
+		return nil, errors.Wrap(err, "error contructing database connection uri.")
+	}
+
+	u.User = url.UserPassword(c.user, c.password)
+	dbConfig, err := pgx.ParseURI(u.String())
 
 	if err != nil {
 		return nil, errors.Wrap(err, "error setting up database connection.")
