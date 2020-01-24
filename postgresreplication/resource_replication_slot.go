@@ -3,7 +3,9 @@ package postgresreplication
 import (
 	"fmt"
 	"net/url"
+	"time"
 
+	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/jackc/pgx"
 	"github.com/pkg/errors"
@@ -43,6 +45,9 @@ func resourceReplicationSlot() *schema.Resource {
 				ForceNew:    true,
 				Description: "The name of the database this slot is associated with.",
 			},
+		},
+		Timeouts: &schema.ResourceTimeout{
+			Delete: schema.DefaultTimeout(1 * time.Minute),
 		},
 	}
 }
@@ -131,16 +136,18 @@ func resourceReplicationSlotRead(d *schema.ResourceData, m interface{}) error {
 }
 
 func resourceReplicationSlotDelete(d *schema.ResourceData, m interface{}) error {
-	replConn, err := connect(d, m)
-	if err != nil {
-		return err
-	}
-	defer replConn.Close()
+	return resource.Retry(d.Timeout(schema.TimeoutDelete), func() *resource.RetryError {
+		replConn, err := connect(d, m)
+		if err != nil {
+			return resource.NonRetryableError(err)
+		}
+		defer replConn.Close()
 
-	err = replConn.DropReplicationSlot(d.Id())
-	if err != nil {
-		return errors.Wrap(err, "error dropping replication slot.")
-	}
+		err = replConn.DropReplicationSlot(d.Id())
+		if err != nil {
+			return resource.RetryableError(errors.Wrap(err, "error dropping replication slot."))
+		}
 
-	return nil
+		return nil
+	})
 }
