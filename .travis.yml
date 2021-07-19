@@ -5,7 +5,6 @@ env:
   global:
   - TF_ACC=1
   - GO111MODULE=on
-  - secure: mWClNhAyx4ao+rqPx7fC6TZymWgemyTFJ72JlLmm/CHb71KQJjZrJqSlX4SqcmLV5C4912Q77IwS5NMzNmGigFpTIhdUkcdH+AhTAT5y6eSY7x77Xu20/eGGZYzW3pIoioDN7t2t64Xlm2+E9yPkZOQOExBvdU77ujkKFZR8oZikKmrasTgAVhb0iaUpGhb+KHtg7XFcSbYqazQQPLXg3bQyp60QdeBHgn7Ai33yIVtlVKJsEmuE+PynfmTrpzie1lQcxlTDzVffN0cu918yw1SVNHzMAXm1O8f+RTvWw/lThtvgRsgqG6PkmU5UfPSHQUCyvNR0NxeClaBi/J6+u6TzqsMhil46R2YFA/sdWpsc9ThCwS/zYAmrp0/+AhUEzfiPDMLd+adMA5IUGrJiXKcdPUoKbjrmSX5jXfJwTpSVHWEbdgCi0rpU9kD7Qe+Iub35n5AQiALtvirJIfPF1JsZXWBvB/sEhKMsFIxSe92f1DIf5daDAsZRWgXde8rEIt74Smt0hWnLoiFKN3wBg1+Mc9C7ouJC56FOPLs+mS0nk5nBzyQBnlm5OlCZS+TW/2iXrLCf2TBXHjQiyP/ph2WMApy+v/Z4PiLzBSTXBcCQamq//lOReZsLybOsDhVLvaX2NmjjF26LYNHg/b5DpBVzrQ3rMif7BK30det8gok=
 cache:
   directories:
   - "$GOPATH/pkg/mod"
@@ -15,7 +14,7 @@ script:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: curl -sL https://git.io/goreleaser | bash
+  script: bash scripts/goreleaser.sh
   on:
     tags: true
     condition: "$TRAVIS_OS_NAME = linux"
