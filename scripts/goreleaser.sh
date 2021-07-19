@@ -5,15 +5,15 @@ TAR_FILE="/tmp/goreleaser.tar.gz"
 RELEASES_URL="https://github.com/goreleaser/goreleaser/releases"
 test -z "$TMPDIR" && TMPDIR="$(mktemp -d)"
 
-last_version() {
-  curl -sL -o /dev/null -w %{url_effective} "$RELEASES_URL/latest" | 
+pinned_version() {
+  curl -sL -o /dev/null -w %{url_effective} "$RELEASES_URL/v0.173.2" |
     rev | 
     cut -f1 -d'/'| 
     rev
 }
 
 download() {
-  test -z "$VERSION" && VERSION="$(last_version)"
+  test -z "$VERSION" && VERSION="$(pinned_version)"
   test -z "$VERSION" && {
     echo "Unable to get goreleaser version." >&2
     exit 1
