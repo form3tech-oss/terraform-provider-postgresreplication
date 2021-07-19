@@ -3,10 +3,12 @@ set -e
 
 TAR_FILE="/tmp/goreleaser.tar.gz"
 RELEASES_URL="https://github.com/goreleaser/goreleaser/releases"
+PINNED_VERSION="v0.173.2"
+
 test -z "$TMPDIR" && TMPDIR="$(mktemp -d)"
 
 pinned_version() {
-  curl -sL -o /dev/null -w %{url_effective} "$RELEASES_URL/v0.173.2" |
+  curl -sL -o /dev/null -w %{url_effective} "$RELEASES_URL/$PINNED_VERSION" |
     rev | 
     cut -f1 -d'/'| 
     rev
