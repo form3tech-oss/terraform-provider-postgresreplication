@@ -1,7 +1,5 @@
 # PostgreSQL logical replication Terraform provider
 
-[![Build Status](https://travis-ci.com/form3tech-oss/terraform-provider-postgresreplication.svg?branch=master)](https://travis-ci.com/form3tech-oss/terraform-provider-postgresreplication)
-
 A Terraform provider for managing PostgreSQL [logical replication slots](https://www.postgresql.org/docs/9.5/logicaldecoding-walsender.html).
 
 ## Summary
